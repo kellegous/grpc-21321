@@ -1,0 +1,19 @@
+{
+    "name": "knorton/repo",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Kelly Norton",
+            "email": "knorton@rsglab.com"
+        }
+    ],
+    "require": {
+        "grpc/grpc": "^1.25"
+    },
+    "autoload": {
+        "psr-4": {
+            "GPBMetadata\\": "lib/GPBMetadata",
+            "Helloworld\\": "lib/Helloworld"
+        }
+    }
+}

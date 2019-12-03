@@ -1,0 +1,36 @@
+#!/usr/bin/env python3
+
+import os
+import urllib.request
+import subprocess
+import sys
+import time
+
+def main():
+    root = os.path.abspath(
+        os.path.dirname(__file__))
+
+    if subprocess.call([
+        'docker',
+        'build',
+        '-t', 'grpc-21321',
+        '.'], cwd=root) != 0:
+        return 1
+
+    p = subprocess.Popen([
+        'docker', 'run', '-ti', '--rm',
+        '-v', '{}:/src'.format(root),
+        '-p', '8080:8080',
+        '-w', '/src',
+        'grpc-21321',
+        'php', '-S', '0.0.0.0:8080'
+    ], cwd=root)
+
+    time.sleep(1.5)
+
+    print('Now run: curl -v http://localhost:8080/ && curl -v http://localhost:8080/')
+
+    return p.wait()
+
+if __name__ == '__main__':
+    sys.exit(main())
